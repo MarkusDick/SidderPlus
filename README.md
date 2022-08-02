@@ -1,17 +1,28 @@
-# Sidder
-Sidder is a little tool built for the .net 4.5 Framework, which means it runs as a standalone executable on Windows 2012 and Windows 2012R2.
+# SidderPlus
 
-Working in environments with lots of users and lots of User Profile Disks this tool will help you to quickly identify which User Profile Disk belongs to which Domain User.
+SidderPlus is a fork of [Sidder](https://github.com/msfreaks/Sidder) from [msfreaks](https://github.com/msfreaks/). The tool now runs with the .net4.8 framework.
 
-First published on Microsoft TechNet Gallery: https://gallery.technet.microsoft.com/Sidder-Quickly-see-which-fa6360b3#content
+Sidder allows to quickly identify which User Profile Disk belongs to which Domain User. 
 
-Released the sources to the public on February 17th, 2020.
+This fork also allows to close an open smb file.
 
-For more info on Sidder, check out my blog posts related to Sidder:
-https://msfreaks.wordpress.com/2013/12/15/sidder-quickly-see-which-user-profile-disk-maps-to-which-domain-user/
-https://msfreaks.wordpress.com/2014/11/23/sidder-v2-0-quickly-see-which-user-profile-disk-maps-to-which-domain-user-and-more/
+## Why SidderPlus
+Sometimes we have the problem that users do not get their own user profile disk assigned. Therefore, you must search for the vhdx file name in Sidder and then go to Computer Management and close the open smb file. This fork adds this feature directly to Sidder.
 
+Since I want the project to be found on GitHub and GitHub search usually excludes forks I renamed the project. The original project Sidder is [no longer maintained](https://msfreaks.wordpress.com/2020/02/17/sidder-v2-6-open-sourced-and-more/).
 
+## Disclaimer
+I am not a C# developer. I just "hacked" this version together. Before this project I had no idea how a C# project is organized. But now it works. Since the state of the project serves my purposes, there is no further roadmap. If you want changes, feel free to open an issue or PR. I will definitely take a look at it.
+
+## Screenshot
+![](sidder_plus_screenshot.png)
+
+## Thanks
+Thanks to [msfreaks](https://github.com/msfreaks/) for creating and open sourcing this tool.
+
+## License
+### Sidder:
 You are free to use the code to build your own Sidder or modify the existing Sidder to your liking, as long as the About box remains intact.
 
-Arjan
+### SidderPlus:
+My changes are under the MIT-License.
