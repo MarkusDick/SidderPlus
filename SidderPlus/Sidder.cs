@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.DirectoryServices.AccountManagement;
+using System.Management.Automation;
+using System.Collections.ObjectModel;
 
 namespace SidderApp
 {
@@ -229,10 +231,12 @@ namespace SidderApp
             if (listViewUVHDFiles.SelectedItems.Count < 1) 
             {
                 buttonDelete.Enabled = false;
+                buttonClose.Enabled = false;
                 return;
             }
 
             buttonDelete.Enabled = true;
+            buttonClose.Enabled = true;
 
         }
 
@@ -292,5 +296,55 @@ namespace SidderApp
             return false;
         }
 
+        private bool IsElevated()
+        {
+            bool isElevated = false;
+            using (WindowsIdentity identity = WindowsIdentity.GetCurrent())
+            {
+                WindowsPrincipal principal = new WindowsPrincipal(identity);
+                isElevated = principal.IsInRole(WindowsBuiltInRole.Administrator);
+            }
+
+            return isElevated;
+        }
+
+        private void buttonClose_Click(object sender, EventArgs e)
+        {
+            // We need admin permissions to close an open smb file.
+            if (IsElevated())
+            {
+                PowerShell ps = PowerShell.Create();
+                foreach (ListViewItem item in listViewUVHDFiles.SelectedItems)
+                {
+                    var filename = item.SubItems[0].Text;
+                    var result = MessageBox.Show("Close this file: " + filename + "!", "Close",
+                                     MessageBoxButtons.YesNo,
+                                     MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        // Check if file exists
+                        var path = textBoxFilePathUVHD.Text + "\\" + filename;
+
+                        if (File.Exists(path))
+                        {
+                            // here we have to use the powershell command `Get-SmbOpenFile` to get the FileId of the selected item
+                            ps.AddScript("Get-SmbOpenFile | Where-Object {$_.Path -like '*" + filename + "'} | Select-Object -Property FileId");
+                            var output = ps.Invoke();
+                            foreach(var psResult in output)
+                            {
+                                var fileId = psResult.Properties["FileId"].Value.ToString();
+                                // powershell command to force close the SmbOpenFile
+                                ps.AddScript("Close-SmbOpenFile -FileId " + fileId + " -Force");
+                                ps.Invoke();
+                            }
+                            MessageBox.Show("Closed the selected files.");
+                        }
+                    }
+                }
+            } else
+            {
+                MessageBox.Show("You need to start the program as administrator", "Close");
+            }
+        }
     }
 }
