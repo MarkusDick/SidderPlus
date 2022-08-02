@@ -17,6 +17,13 @@ I am not a C# developer. I just "hacked" this version together. Before this proj
 ## Screenshot
 ![](sidder_plus_screenshot.png)
 
+## Usage
+You need to start Sidder as an administrator. Then you can select an item and press the left button to close the open SMB file.
+
+![](how_to_close.png)
+
+That's it.
+
 ## Thanks
 Thanks to [msfreaks](https://github.com/msfreaks/) for creating and open sourcing this tool.
 
