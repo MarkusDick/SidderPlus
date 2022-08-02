@@ -17,6 +17,9 @@ I am not a C# developer. I just "hacked" this version together. Before this proj
 ## Screenshot
 ![](sidder_plus_screenshot.png)
 
+## Download
+You can download the latest version [here from the releases](https://github.com/MarkusDick/SidderPlus/releases/).
+
 ## Usage
 You need to start Sidder as an administrator. Then you can select an item and press the left button to close the open SMB file.
 
