@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace SidderApp
 {
-    partial class DeleteBox : Form
+    partial class CloseDeleteBox : Form
     {
         public ListView listViewUVHDFiles;
         private Button buttonCancel;
@@ -17,15 +17,15 @@ namespace SidderApp
         private System.ComponentModel.IContainer components;
         private ColumnHeader columnHeader1;
     
-        public DeleteBox()
+        public CloseDeleteBox(string boxType)
         {
-            InitializeComponent();
+            InitializeComponent(boxType);
         }
 
-        private void InitializeComponent()
+        private void InitializeComponent(string boxType)
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DeleteBox));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CloseDeleteBox));
             this.listViewUVHDFiles = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -52,7 +52,13 @@ namespace SidderApp
             // 
             // columnHeader1
             // 
-            this.columnHeader1.Text = "UVHD files to delete";
+            if(boxType == "delete")
+            {
+                this.columnHeader1.Text = "UVHD files to delete";
+            } else if (boxType == "close"){
+                this.columnHeader1.Text = "UVHD files to close";
+            }
+            
             this.columnHeader1.Width = 354;
             // 
             // columnHeader2
@@ -97,11 +103,21 @@ namespace SidderApp
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "DeleteBox";
+            if (boxType == "delete")
+            {
+                this.Name = "DeleteBox";
+                this.Text = "Delete";
+            }
+            else if (boxType == "close")
+            {
+                this.Name = "CloseBox";
+                this.Text = "Close";
+            }
+            
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Delete";
+            
             this.ResumeLayout(false);
 
         }

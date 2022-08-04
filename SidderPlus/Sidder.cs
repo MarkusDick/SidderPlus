@@ -243,7 +243,7 @@ namespace SidderApp
         private void buttonDelete_Click(object sender, EventArgs e)
         {
 
-            DeleteBox deleteBox = new DeleteBox();
+            CloseDeleteBox deleteBox = new CloseDeleteBox("delete");
             deleteBox.listViewUVHDFiles.Items.Clear();
 
             foreach(ListViewItem item in listViewUVHDFiles.SelectedItems)
@@ -314,36 +314,57 @@ namespace SidderApp
             if (IsElevated())
             {
                 PowerShell ps = PowerShell.Create();
+
+
+                // copy-paste-begin
+                CloseDeleteBox closeBox = new CloseDeleteBox("close");
+                closeBox.listViewUVHDFiles.Items.Clear();
+
                 foreach (ListViewItem item in listViewUVHDFiles.SelectedItems)
                 {
-                    var filename = item.SubItems[0].Text;
-                    var result = MessageBox.Show("Close this file: " + filename + "!", "Close",
-                                     MessageBoxButtons.YesNo,
-                                     MessageBoxIcon.Question);
-                    if (result == DialogResult.Yes)
-                    {
-                        // Check if file exists
-                        var path = textBoxFilePathUVHD.Text + "\\" + filename;
+                    ListViewItem closeItem = new ListViewItem(item.Text, item.ImageIndex);
+                    closeItem.SubItems.Add(item.SubItems[2].Text);
+                    closeItem.SubItems.Add(item.SubItems[4].Text);
+                    closeBox.listViewUVHDFiles.Items.Add(closeItem);
+                }
 
-                        if (File.Exists(path))
+                DialogResult result = closeBox.ShowDialog();
+
+                if (result == DialogResult.Cancel) { return; }
+
+                if (result == DialogResult.OK)
+                {
+                    foreach (ListViewItem item in closeBox.listViewUVHDFiles.Items)
+                    {
+                        try
                         {
-                            // here we have to use the powershell command `Get-SmbOpenFile` to get the FileId of the selected item
-                            ps.AddScript("Get-SmbOpenFile | Where-Object {$_.Path -like '*" + filename + "'} | Select-Object -Property FileId");
-                            var output = ps.Invoke();
-                            foreach(var psResult in output)
+                            // File.Delete(item.SubItems[2].Text);
+                            var path = item.SubItems[2].Text;
+                            if (File.Exists(path))
                             {
-                                var fileId = psResult.Properties["FileId"].Value.ToString();
-                                // powershell command to force close the SmbOpenFile
-                                ps.AddScript("Close-SmbOpenFile -FileId " + fileId + " -Force");
-                                ps.Invoke();
+                                var filename = item.SubItems[0].Text;
+                                // here we have to use the powershell command `Get-SmbOpenFile` to get the FileId of the selected item
+                                ps.AddScript("Get-SmbOpenFile | Where-Object {$_.Path -like '*" + filename + "'} | Select-Object -Property FileId");
+                                var output = ps.Invoke();
+                                foreach (var psResult in output)
+                                {
+                                    var fileId = psResult.Properties["FileId"].Value.ToString();
+                                    // powershell command to force close the SmbOpenFile
+                                    ps.AddScript("Close-SmbOpenFile -FileId " + fileId + " -Force");
+                                    ps.Invoke();
+                                }
                             }
-                            MessageBox.Show("Closed the selected files.");
+                        }
+                        catch (Exception)
+                        {
                         }
                     }
+
+                    refreshListBox(textBoxFilePathUVHD.Text);
                 }
             } else
             {
-                MessageBox.Show("You need to start the program as administrator", "Close");
+                MessageBox.Show("You need to start the program as administrator.", "Close");
             }
         }
     }
