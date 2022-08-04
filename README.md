@@ -4,10 +4,10 @@ SidderPlus is a fork of [Sidder](https://github.com/msfreaks/Sidder) from [msfre
 
 Sidder allows to quickly identify which User Profile Disk belongs to which Domain User. 
 
-This fork also allows to close an open smb file / unlock an locked UPD (User Profile Disk).
+This fork also allows to close an open smb file / close an locked UPD (User Profile Disk).
 
 ## Why SidderPlus
-Sometimes we have the problem that users do not get their own user profile disk assigned. Therefore, you must search for the vhdx file name in Sidder and then go to Computer Management and close the open smb file. This fork adds this feature directly to Sidder.
+Sometimes we have the problem that users do not get their own user profile disk assigned. Therefore, you must search for the locked vhdx file name in Sidder and then go to Computer Management and close the open smb file. This fork adds this feature directly to Sidder.
 
 Since I want the project to be found on GitHub and GitHub search usually excludes forks I renamed the project. The original project Sidder is [no longer maintained](https://msfreaks.wordpress.com/2020/02/17/sidder-v2-6-open-sourced-and-more/).
 
@@ -16,12 +16,13 @@ I am not a C# developer. I just "hacked" this version together. Before this proj
 
 ## Screenshot
 ![](sidder_plus_screenshot.png)
+![](sidder_plus_close_screenshot.png)
 
 ## Download
 You can download the latest version [here from the releases](https://github.com/MarkusDick/SidderPlus/releases/).
 
 ## Usage
-You need to start Sidder as an administrator. Then you can select an item and press the left button to close the open SMB file.
+You need to start Sidder as an administrator. Then you can select an item and press the left button to close the open SMB file / the locked UPD.
 
 ![](how_to_close.png)
 
