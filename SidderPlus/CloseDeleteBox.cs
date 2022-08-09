@@ -17,12 +17,12 @@ namespace SidderApp
         private System.ComponentModel.IContainer components;
         private ColumnHeader columnHeader1;
     
-        public CloseDeleteBox(string boxType)
+        public CloseDeleteBox(string boxHeaderText, string boxText, string boxName)
         {
-            InitializeComponent(boxType);
+            InitializeComponent(boxHeaderText, boxText, boxName);
         }
 
-        private void InitializeComponent(string boxType)
+        private void InitializeComponent(string boxHeaderText, string boxText, string boxName)
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CloseDeleteBox));
@@ -52,13 +52,7 @@ namespace SidderApp
             // 
             // columnHeader1
             // 
-            if(boxType == "delete")
-            {
-                this.columnHeader1.Text = "UVHD files to delete";
-            } else if (boxType == "close"){
-                this.columnHeader1.Text = "UVHD files to close";
-            }
-            
+            this.columnHeader1.Text = boxHeaderText
             this.columnHeader1.Width = 354;
             // 
             // columnHeader2
@@ -103,16 +97,8 @@ namespace SidderApp
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            if (boxType == "delete")
-            {
-                this.Name = "DeleteBox";
-                this.Text = "Delete";
-            }
-            else if (boxType == "close")
-            {
-                this.Name = "CloseBox";
-                this.Text = "Close";
-            }
+            this.Name = boxName;
+            this.Text = boxText;
             
             this.ShowIcon = false;
             this.ShowInTaskbar = false;

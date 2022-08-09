@@ -243,7 +243,7 @@ namespace SidderApp
         private void buttonDelete_Click(object sender, EventArgs e)
         {
 
-            CloseDeleteBox deleteBox = new CloseDeleteBox("delete");
+            CloseDeleteBox deleteBox = new CloseDeleteBox("UVHD files to delete", "Delete", "DeleteBox");
             deleteBox.listViewUVHDFiles.Items.Clear();
 
             foreach(ListViewItem item in listViewUVHDFiles.SelectedItems)
@@ -317,7 +317,7 @@ namespace SidderApp
 
 
                 // copy-paste-begin
-                CloseDeleteBox closeBox = new CloseDeleteBox("close");
+                CloseDeleteBox closeBox = new CloseDeleteBox("UVHD files to close", "Close", "CloseBox");
                 closeBox.listViewUVHDFiles.Items.Clear();
 
                 foreach (ListViewItem item in listViewUVHDFiles.SelectedItems)
