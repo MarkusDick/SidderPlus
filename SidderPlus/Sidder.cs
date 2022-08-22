@@ -17,16 +17,12 @@ namespace SidderApp
 {
     public partial class Sidder : Form
     {
-        // private ListViewColumnSorter listViewColumnSorter;
         private PrincipalContext principalContext = new PrincipalContext(ContextType.Domain);
 
         public Sidder()
         {
             InitializeComponent();
-            // listViewColumnSorter = new ListViewColumnSorter();
             this.listViewUVHDFiles.ListViewItemSorter = new Sorter();
-            //this.listViewUVHDFiles.ListViewItemSorter = listViewColumnSorter;
-
         }
 
 
@@ -68,7 +64,6 @@ namespace SidderApp
                 {
                     UserPrincipal user = UserPrincipal.FindByIdentity(principalContext, (fileName.Substring(5, fileName.Length - 10)));
                     returnValue = user.UserPrincipalName; 
-                    // returnValue = new SecurityIdentifier(fileName.Substring(5, fileName.Length - 10)).Translate(typeof(NTAccount)).ToString();
                 }
 
             }
@@ -95,40 +90,6 @@ namespace SidderApp
             }
             listViewUVHDFiles.Sort();
         }
-
-        /*
-        private void listViewUVHDFiles_ColumnClick(object sender, ColumnClickEventArgs e)
-        {
-            // Determine if clicked column is already the column that is being sorted.
-            if ( e.Column == listViewColumnSorter.SortColumn )
-            {
-                if(e.Column == 3)
-                {
-                    // convert string column to int before sorting
-
-                }
-	            // Reverse the current sort direction for this column.
-	            if (listViewColumnSorter.Order == SortOrder.Ascending)
-	            {
-		            listViewColumnSorter.Order = SortOrder.Descending;
-	            }
-	            else
-	            {
-		            listViewColumnSorter.Order = SortOrder.Ascending;
-	            }
-            }
-            else
-            {
-	            // Set the column number that is to be sorted; default to ascending.
-	            listViewColumnSorter.SortColumn = e.Column;
-	            listViewColumnSorter.Order = SortOrder.Ascending;
-            }
-
-            // Perform the sort with these new sort options.
-            this.listViewUVHDFiles.Sort();
-
-        }
-        */
 
         private void Sidder_Load(object sender, EventArgs e)
         {
@@ -266,8 +227,9 @@ namespace SidderApp
                     {
                         File.Delete(item.SubItems[2].Text);
                     }
-                    catch (Exception)
+                    catch (Exception exeception)
                     {
+                        textBoxStatus.Text = exeception.Message;
                     }
                 }
 
@@ -315,8 +277,6 @@ namespace SidderApp
             {
                 PowerShell ps = PowerShell.Create();
 
-
-                // copy-paste-begin
                 CloseDeleteBox closeBox = new CloseDeleteBox("UVHD files to close", "Close", "CloseBox");
                 closeBox.listViewUVHDFiles.Items.Clear();
 
@@ -337,8 +297,7 @@ namespace SidderApp
                     foreach (ListViewItem item in closeBox.listViewUVHDFiles.Items)
                     {
                         try
-                        {
-                            // File.Delete(item.SubItems[2].Text);
+                        { 
                             var path = item.SubItems[2].Text;
                             if (File.Exists(path))
                             {
@@ -355,8 +314,9 @@ namespace SidderApp
                                 }
                             }
                         }
-                        catch (Exception)
+                        catch (Exception exeception)
                         {
+                            textBoxStatus.Text = exeception.Message;
                         }
                     }
 
@@ -364,7 +324,7 @@ namespace SidderApp
                 }
             } else
             {
-                MessageBox.Show("You need to start the program as administrator.", "Close");
+                MessageBox.Show("You need to start the program as administrator.", "Information");
             }
         }
     }

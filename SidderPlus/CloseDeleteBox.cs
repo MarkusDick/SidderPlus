@@ -52,7 +52,7 @@ namespace SidderApp
             // 
             // columnHeader1
             // 
-            this.columnHeader1.Text = boxHeaderText
+            this.columnHeader1.Text = boxHeaderText;
             this.columnHeader1.Width = 354;
             // 
             // columnHeader2
