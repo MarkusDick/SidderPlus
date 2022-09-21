@@ -11,18 +11,28 @@ Sometimes we have the problem that users do not get their own user profile disk 
 
 Since I want the project to be found on GitHub and GitHub search usually excludes forks I renamed the project. The original project Sidder is [no longer maintained](https://msfreaks.wordpress.com/2020/02/17/sidder-v2-6-open-sourced-and-more/).
 
+### Difference between Sidder and SidderPlus
+| Features                                          | Sidder | SidderPlus |
+|--------------------------------------------------|--------|------------|
+| Identifiy which UPD belongs to which Domain User | ✅     | ✅        |
+| Delete UPD                                       | ✅     | ✅        |
+| Close locked UPD                                 | ❌     | ✅        |
+| Release is available for download                | ❌     | ✅        |
+| .net Framework Version                           | 4.5     | 4.8       |
+
+
 ## Disclaimer
-I am not a C# developer. I just "hacked" this version together. Before this project I had no idea how a C# project is organized. But now it works. Since the state of the project serves my purposes, there is no further roadmap. If you want changes, feel free to open an issue or PR. I will definitely take a look at it.
+I am not a C# developer. I just "hacked" this version together. Before this project I had no idea how a C# project is organized. Since the state of the project serves my purposes, there is no further roadmap. If you want changes, feel free to open an issue or PR. I will definitely take a look at it.
+
+## Download
+You can download the latest version [here from the releases](https://github.com/MarkusDick/SidderPlus/releases/).
 
 ## Screenshot
 ![](sidder_plus_screenshot.png)
 ![](sidder_plus_close_screenshot.png)
 
-## Download
-You can download the latest version [here from the releases](https://github.com/MarkusDick/SidderPlus/releases/).
-
 ## Usage
-You need to start Sidder as an administrator. Then you can select an item and press the left button to close the open SMB file / the locked UPD.
+You need to start SidderPlus as an administrator. Then you can select an item and press the left button to close the open SMB file / the locked UPD.
 
 ![](how_to_close.png)
 
