@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using System.DirectoryServices.AccountManagement;
 using System.Management.Automation;
 using System.Collections.ObjectModel;
+using System.Windows.Forms.VisualStyles;
 
 namespace SidderApp
 {
@@ -325,6 +326,50 @@ namespace SidderApp
             } else
             {
                 MessageBox.Show("You need to start the program as administrator.", "Information");
+            }
+        }
+
+        /// <summary>
+        /// Writes the content of the listViewUVHDFiles to a csv file
+        /// </summary>
+        /// <returns></returns>
+        private void buttonExport_Click(object sender, EventArgs e)
+        {
+            try { 
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "CSV file (*.csv)|*.csv| All Files (*.*)|*.*";
+                saveFileDialog.FilterIndex = 0;
+                saveFileDialog.RestoreDirectory = true;
+                saveFileDialog.CreatePrompt = true;
+                saveFileDialog.Title = "Export data to csv";
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    StreamWriter sw = new StreamWriter(saveFileDialog.FileName);
+                    sw.WriteLine("uvhd file, last change, username, size, path");
+                    foreach (ListViewItem item in this.listViewUVHDFiles.Items)
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        int count = 0;
+                        foreach (ListViewItem.ListViewSubItem subItem in item.SubItems)
+                        {
+                            sb.Append(subItem.Text);
+                            if (count < 4)
+                            {
+                                sb.Append(",");
+                            }
+                            count += 1;
+
+                        }
+                        sw.WriteLine(sb.ToString());
+                    }
+                    sw.Close();
+                    textBoxStatus.Text = "Successfully exported data to " + saveFileDialog.FileName;
+                }
+            }
+            catch (Exception ex)
+            {
+                textBoxStatus.Text = "Export failed: " + ex.Message;
             }
         }
     }
