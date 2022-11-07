@@ -154,14 +154,14 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\export.bmp" />
     <None Include="sync.png" />
     <None Include="folder.png" />
     <None Include="delete.png" />
+    <Content Include="export.png" />
     <Content Include="msfreaks.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
