@@ -354,7 +354,7 @@ namespace SidderApp
                         foreach (ListViewItem.ListViewSubItem subItem in item.SubItems)
                         {
                             sb.Append(subItem.Text);
-                            if (count < 4)
+                            if (count < item.SubItems.Count - 1)
                             {
                                 sb.Append(",");
                             }
