@@ -36,17 +36,19 @@
             this.linkLabel = new System.Windows.Forms.LinkLabel();
             this.textBoxStatus = new System.Windows.Forms.TextBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.buttonExport = new System.Windows.Forms.Button();
+            this.buttonClose = new System.Windows.Forms.Button();
+            this.buttonDelete = new System.Windows.Forms.Button();
+            this.buttonRefresh = new System.Windows.Forms.Button();
+            this.buttonBrowse = new System.Windows.Forms.Button();
             this.listViewUVHDFiles = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.textBoxFilePathUVHDCurrent = new System.Windows.Forms.TextBox();
-            this.buttonExport = new System.Windows.Forms.Button();
-            this.buttonClose = new System.Windows.Forms.Button();
-            this.buttonDelete = new System.Windows.Forms.Button();
-            this.buttonRefresh = new System.Windows.Forms.Button();
-            this.buttonBrowse = new System.Windows.Forms.Button();
+            this.textBoxSearch = new System.Windows.Forms.TextBox();
+            this.labelSearch = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // imageList
@@ -64,7 +66,7 @@
             this.textBoxFilePathUVHD.Location = new System.Drawing.Point(12, 25);
             this.textBoxFilePathUVHD.Name = "textBoxFilePathUVHD";
             this.textBoxFilePathUVHD.ReadOnly = true;
-            this.textBoxFilePathUVHD.Size = new System.Drawing.Size(616, 22);
+            this.textBoxFilePathUVHD.Size = new System.Drawing.Size(427, 22);
             this.textBoxFilePathUVHD.TabIndex = 1;
             this.textBoxFilePathUVHD.TabStop = false;
             this.textBoxFilePathUVHD.TextChanged += new System.EventHandler(this.textBoxFilePathUVHD_TextChanged);
@@ -104,60 +106,6 @@
             this.textBoxStatus.Size = new System.Drawing.Size(649, 22);
             this.textBoxStatus.TabIndex = 7;
             this.textBoxStatus.TabStop = false;
-            // 
-            // listViewUVHDFiles
-            // 
-            this.listViewUVHDFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listViewUVHDFiles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader4});
-            this.listViewUVHDFiles.FullRowSelect = true;
-            this.listViewUVHDFiles.HideSelection = false;
-            this.listViewUVHDFiles.Location = new System.Drawing.Point(12, 55);
-            this.listViewUVHDFiles.Name = "listViewUVHDFiles";
-            this.listViewUVHDFiles.Size = new System.Drawing.Size(718, 354);
-            this.listViewUVHDFiles.SmallImageList = this.imageList;
-            this.listViewUVHDFiles.TabIndex = 8;
-            this.listViewUVHDFiles.UseCompatibleStateImageBehavior = false;
-            this.listViewUVHDFiles.View = System.Windows.Forms.View.Details;
-            this.listViewUVHDFiles.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewUVHDFiles_ColumnClick);
-            this.listViewUVHDFiles.SelectedIndexChanged += new System.EventHandler(this.listViewUVHDFiles_SelectedIndexChanged);
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Tag = "";
-            this.columnHeader1.Text = "UVHD file";
-            this.columnHeader1.Width = 342;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Tag = "DateTime";
-            this.columnHeader2.Text = "Last change";
-            this.columnHeader2.Width = 133;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Tag = "";
-            this.columnHeader3.Text = "Username";
-            this.columnHeader3.Width = 161;
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Tag = "Numeric";
-            this.columnHeader4.Text = "Size (MB)";
-            this.columnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // textBoxFilePathUVHDCurrent
-            // 
-            this.textBoxFilePathUVHDCurrent.Location = new System.Drawing.Point(567, 477);
-            this.textBoxFilePathUVHDCurrent.Name = "textBoxFilePathUVHDCurrent";
-            this.textBoxFilePathUVHDCurrent.Size = new System.Drawing.Size(100, 22);
-            this.textBoxFilePathUVHDCurrent.TabIndex = 6;
-            this.textBoxFilePathUVHDCurrent.Visible = false;
             // 
             // buttonExport
             // 
@@ -222,11 +170,87 @@
             this.buttonBrowse.UseVisualStyleBackColor = true;
             this.buttonBrowse.Click += new System.EventHandler(this.buttonBrowse_Click);
             // 
+            // listViewUVHDFiles
+            // 
+            this.listViewUVHDFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewUVHDFiles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4});
+            this.listViewUVHDFiles.FullRowSelect = true;
+            this.listViewUVHDFiles.HideSelection = false;
+            this.listViewUVHDFiles.Location = new System.Drawing.Point(12, 55);
+            this.listViewUVHDFiles.Name = "listViewUVHDFiles";
+            this.listViewUVHDFiles.Size = new System.Drawing.Size(718, 354);
+            this.listViewUVHDFiles.SmallImageList = this.imageList;
+            this.listViewUVHDFiles.TabIndex = 8;
+            this.listViewUVHDFiles.UseCompatibleStateImageBehavior = false;
+            this.listViewUVHDFiles.View = System.Windows.Forms.View.Details;
+            this.listViewUVHDFiles.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewUVHDFiles_ColumnClick);
+            this.listViewUVHDFiles.SelectedIndexChanged += new System.EventHandler(this.listViewUVHDFiles_SelectedIndexChanged);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Tag = "";
+            this.columnHeader1.Text = "UVHD file";
+            this.columnHeader1.Width = 342;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Tag = "DateTime";
+            this.columnHeader2.Text = "Last change";
+            this.columnHeader2.Width = 133;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Tag = "";
+            this.columnHeader3.Text = "Username";
+            this.columnHeader3.Width = 161;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Tag = "Numeric";
+            this.columnHeader4.Text = "Size (MB)";
+            this.columnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // textBoxFilePathUVHDCurrent
+            // 
+            this.textBoxFilePathUVHDCurrent.Location = new System.Drawing.Point(567, 477);
+            this.textBoxFilePathUVHDCurrent.Name = "textBoxFilePathUVHDCurrent";
+            this.textBoxFilePathUVHDCurrent.Size = new System.Drawing.Size(100, 22);
+            this.textBoxFilePathUVHDCurrent.TabIndex = 6;
+            this.textBoxFilePathUVHDCurrent.Visible = false;
+            // 
+            // textBoxSearch
+            // 
+            this.textBoxSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxSearch.Enabled = false;
+            this.textBoxSearch.Location = new System.Drawing.Point(445, 25);
+            this.textBoxSearch.Name = "textBoxSearch";
+            this.textBoxSearch.Size = new System.Drawing.Size(183, 22);
+            this.textBoxSearch.TabIndex = 11;
+            this.textBoxSearch.TextChanged += new System.EventHandler(this.textBoxSearch_TextChanged);
+            // 
+            // labelSearch
+            // 
+            this.labelSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelSearch.AutoSize = true;
+            this.labelSearch.Location = new System.Drawing.Point(442, 9);
+            this.labelSearch.Name = "labelSearch";
+            this.labelSearch.Size = new System.Drawing.Size(44, 13);
+            this.labelSearch.TabIndex = 12;
+            this.labelSearch.Text = "Search:";
+            // 
             // Sidder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(742, 465);
+            this.Controls.Add(this.labelSearch);
+            this.Controls.Add(this.textBoxSearch);
             this.Controls.Add(this.buttonExport);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.listViewUVHDFiles);
@@ -269,6 +293,8 @@
         private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.TextBox textBoxFilePathUVHDCurrent;
         private System.Windows.Forms.Button buttonExport;
+        private System.Windows.Forms.TextBox textBoxSearch;
+        private System.Windows.Forms.Label labelSearch;
     }
 }
 
