@@ -18,6 +18,7 @@ Since I want the project to be found on GitHub and GitHub search usually exclude
 | Delete UPD                                       | ✅     | ✅        |
 | Close locked UPD                                 | ❌     | ✅        |
 | CSV export                                       | ❌     | ✅        |
+| Basic user search                                | ❌     | ✅        |
 | Release is available for download                | ❌     | ✅        |
 | .net Framework Version                           | 4.5     | 4.8       |
 
