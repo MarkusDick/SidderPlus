@@ -23,6 +23,8 @@ Since I want the project to be found on GitHub and GitHub search usually exclude
 | .net Framework Version                           | 4.5     | 4.8       |
 
 
+For a complete comparison look  [here](https://github.com/MarkusDick/SidderPlus/compare/4e749789f3094bc908d8c66b7d39447e6642be1d...main).
+
 ## Disclaimer
 I am not a C# developer. I just "hacked" this version together. Before this project I had no idea how a C# project is organized. Since the state of the project serves my purposes, there is no further roadmap. If you want changes, feel free to open an issue or PR. I will definitely take a look at it.
 
