@@ -19,6 +19,7 @@ namespace SidderApp
     public partial class Sidder : Form
     {
         private PrincipalContext principalContext = new PrincipalContext(ContextType.Domain);
+        private ListView originalListViewUVHDFiles = new ListView();
 
         public Sidder()
         {
@@ -152,6 +153,7 @@ namespace SidderApp
                 textBoxStatus.Text = "Refreshing..";
 
                 listViewUVHDFiles.Items.Clear();
+                originalListViewUVHDFiles.Items.Clear();
 
                 foreach (FileInfo file in files)
                 {
@@ -167,14 +169,24 @@ namespace SidderApp
                     listViewUVHDFiles.Items.Add(item);
                 }
 
-                textBoxStatus.Text = String.Format("Folder processed. {0} UVHD Profile disks found.", listViewUVHDFiles.Items.Count.ToString());
+                // This is necessary for the search
+                for (var i = 0;  i < listViewUVHDFiles.Items.Count; i++)
+                {
+                    originalListViewUVHDFiles.Items.Add(listViewUVHDFiles.Items[i].Clone() as ListViewItem);
+                }
+
+                SearchForUsers(textBoxSearch.Text);
+
+                textBoxStatus.Text = String.Format("Folder processed. {0} UVHD Profile disks found.", originalListViewUVHDFiles.Items.Count.ToString());
             }
             catch (Exception e)
             {
                 textBoxStatus.Text = e.Message; // "Error getting UVHD files. Try restarting Sidder with administrative rights.";
             }
+
             buttonRefresh.Enabled = true;
             listViewUVHDFiles.Enabled = true;
+            textBoxSearch.Enabled = true;
         }
 
         private void linkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -199,7 +211,6 @@ namespace SidderApp
 
             buttonDelete.Enabled = true;
             buttonClose.Enabled = true;
-
         }
 
         private void buttonDelete_Click(object sender, EventArgs e)
@@ -371,6 +382,26 @@ namespace SidderApp
             {
                 textBoxStatus.Text = "Export failed: " + ex.Message;
             }
+        }
+
+        /// <summary>
+        /// Searches for users in the originalListViewUVHDFiles and displays them in the listViewUVHDFiles.
+        /// </summary>
+        /// <returns></returns>
+        private void SearchForUsers(string search)
+        {
+            listViewUVHDFiles.Items.Clear();
+            foreach (var item in from ListViewItem item in this.originalListViewUVHDFiles.Items
+                                 where item.SubItems[2].Text.ToLower().Contains(search.ToLower())
+                                 select item)
+            {
+                listViewUVHDFiles.Items.Add(item.Clone() as ListViewItem);
+            }
+        }
+
+        private void textBoxSearch_TextChanged(object sender, EventArgs e)
+        {
+            SearchForUsers(textBoxSearch.Text);
         }
     }
 }
