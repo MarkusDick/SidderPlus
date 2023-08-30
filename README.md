@@ -9,21 +9,23 @@ This fork also allows to close an open smb file / close an locked UPD (User Prof
 ## Why SidderPlus
 Sometimes we have the problem that users do not get their own user profile disk assigned. Therefore, you must search for the locked vhdx file name in Sidder and then go to Computer Management and close the open smb file. This fork adds this feature directly to Sidder.
 
-Since I want the project to be found on GitHub and GitHub search usually excludes forks I renamed the project. The original project Sidder is [no longer maintained](https://msfreaks.wordpress.com/2020/02/17/sidder-v2-6-open-sourced-and-more/).
+Since I want the project to be found on GitHub and GitHub search usually excludes forks I renamed the project. ~The original project Sidder is [no longer maintained](https://msfreaks.wordpress.com/2020/02/17/sidder-v2-6-open-sourced-and-more/).~ 
+
+Update: It seems that the project [has been revived](https://github.com/msfreaks/Sidder/issues/3).
 
 ### Difference between Sidder and SidderPlus
-| Features                                          | Sidder | SidderPlus |
+| Features                                          | Sidder (v2.7) | SidderPlus |
 |--------------------------------------------------|--------|------------|
 | Identifiy which UPD belongs to which Domain User | ✅     | ✅        |
 | Delete UPD                                       | ✅     | ✅        |
 | Close locked UPD                                 | ❌     | ✅        |
 | CSV export                                       | ❌     | ✅        |
 | Basic user search                                | ❌     | ✅        |
-| Release is available for download                | ❌     | ✅        |
-| .net Framework Version                           | 4.5     | 4.8       |
+| Release is available for download                | ✅     | ✅        |
+| .net Framework Version                           | 4.8     | 4.8       |
 
 
-For a complete comparison look  [here](https://github.com/MarkusDick/SidderPlus/compare/4e749789f3094bc908d8c66b7d39447e6642be1d...main).
+For a complete comparison (Sidder v2.6 vs SidderPlus) look  [here](https://github.com/MarkusDick/SidderPlus/compare/4e749789f3094bc908d8c66b7d39447e6642be1d...main).
 
 ## Disclaimer
 I am not a C# developer. I just "hacked" this version together. Before this project I had no idea how a C# project is organized. Since the state of the project serves my purposes, there is no further roadmap. If you want changes, feel free to open an issue or PR. I will definitely take a look at it.
