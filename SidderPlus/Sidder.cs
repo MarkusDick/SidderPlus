@@ -403,5 +403,41 @@ namespace SidderApp
         {
             SearchForUsers(textBoxSearch.Text);
         }
+
+        private void CopyListviewEntriesToClipboard()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            foreach (ListViewItem item in listViewUVHDFiles.SelectedItems)
+            {
+                sb.Append(item.SubItems[0].Text);
+
+                // Check if it's not the last selected item
+                if (listViewUVHDFiles.SelectedItems.IndexOf(item) < listViewUVHDFiles.SelectedItems.Count - 1)
+                {
+                    sb.AppendLine();
+                }
+            }
+
+            Clipboard.SetText(sb.ToString());
+            textBoxStatus.Text = "Copied to clipboard!";
+        }
+
+        private void listViewUVHDFiles_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.C && listViewUVHDFiles.SelectedItems.Count > 0)
+            {
+                CopyListviewEntriesToClipboard();
+            }
+
+        }
+
+        private void CopyMenuStrip_Click(object sender, EventArgs e)
+        {
+            if (listViewUVHDFiles.SelectedItems.Count > 0)
+            {
+                CopyListviewEntriesToClipboard();
+            }
+        }
     }
 }

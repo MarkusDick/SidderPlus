@@ -46,9 +46,12 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.CopyMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.textBoxFilePathUVHDCurrent = new System.Windows.Forms.TextBox();
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.labelSearch = new System.Windows.Forms.Label();
+            this.CopyMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // imageList
@@ -180,6 +183,7 @@
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4});
+            this.listViewUVHDFiles.ContextMenuStrip = this.CopyMenuStrip;
             this.listViewUVHDFiles.FullRowSelect = true;
             this.listViewUVHDFiles.HideSelection = false;
             this.listViewUVHDFiles.Location = new System.Drawing.Point(12, 55);
@@ -191,6 +195,7 @@
             this.listViewUVHDFiles.View = System.Windows.Forms.View.Details;
             this.listViewUVHDFiles.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewUVHDFiles_ColumnClick);
             this.listViewUVHDFiles.SelectedIndexChanged += new System.EventHandler(this.listViewUVHDFiles_SelectedIndexChanged);
+            this.listViewUVHDFiles.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listViewUVHDFiles_KeyDown);
             // 
             // columnHeader1
             // 
@@ -215,6 +220,20 @@
             this.columnHeader4.Tag = "Numeric";
             this.columnHeader4.Text = "Size (MB)";
             this.columnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // CopyMenuStrip
+            // 
+            this.CopyMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copyToolStripMenuItem});
+            this.CopyMenuStrip.Name = "contextMenuStrip1";
+            this.CopyMenuStrip.Size = new System.Drawing.Size(103, 26);
+            this.CopyMenuStrip.Click += new System.EventHandler(this.CopyMenuStrip_Click);
+            // 
+            // copyToolStripMenuItem
+            // 
+            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.copyToolStripMenuItem.Text = "Copy";
             // 
             // textBoxFilePathUVHDCurrent
             // 
@@ -269,6 +288,7 @@
             this.Text = "SidderPlus";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Sidder_FormClosing);
             this.Load += new System.EventHandler(this.Sidder_Load);
+            this.CopyMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -295,6 +315,8 @@
         private System.Windows.Forms.Button buttonExport;
         private System.Windows.Forms.TextBox textBoxSearch;
         private System.Windows.Forms.Label labelSearch;
+        private System.Windows.Forms.ContextMenuStrip CopyMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
     }
 }
 

@@ -14,16 +14,18 @@ Since I want the project to be found on GitHub and GitHub search usually exclude
 Update: It seems that the project [has been revived](https://github.com/msfreaks/Sidder/issues/3).
 
 ### Difference between Sidder and SidderPlus
-| Features                                          | Sidder (v2.7) | SidderPlus |
-|--------------------------------------------------|--------|------------|
-| Identifiy which UPD belongs to which Domain User | ✅     | ✅        |
-| Delete UPD                                       | ✅     | ✅        |
-| Close locked UPD                                 | ❌     | ✅        |
-| CSV export                                       | ❌     | ✅        |
-| Basic user search                                | ❌     | ✅        |
-| Release is available for download                | ✅     | ✅        |
-| .net Framework Version                           | 4.8     | 4.8       |
+| Features                                                     | Sidder | SidderPlus |
+| ------------------------------------------------------------ | ------ | ---------- |
+| Identifiy which UPD belongs to which Domain User             | ✅      | ✅          |
+| Delete UPD                                                   | ✅      | ✅          |
+| Close locked UPD                                             | ❌      | ✅          |
+| CSV export                                                   | ✅      | ✅          |
+| Copy UPD-Name to clipboard (Ctrl + C or right-click => Copy) | ❌      | ✅          |
+| Basic user search                                            | ✅      | ✅          |
+| Release is available for download                            | ✅      | ✅          |
+| .net Framework Version                                       | 4.8    | 4.8        |
 
+> Update: After Sidder has been revived, it caught up with some features (Basic user search, CSV export).
 
 For a complete comparison (Sidder v2.6 vs SidderPlus) look  [here](https://github.com/MarkusDick/SidderPlus/compare/4e749789f3094bc908d8c66b7d39447e6642be1d...main).
 
