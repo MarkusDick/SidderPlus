@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace SidderApp
 {
-    partial class CloseDeleteBox : Form
+    partial class ActionBox : Form
     {
         public ListView listViewUVHDFiles;
         private Button buttonCancel;
@@ -17,7 +17,7 @@ namespace SidderApp
         private System.ComponentModel.IContainer components;
         private ColumnHeader columnHeader1;
     
-        public CloseDeleteBox(string boxHeaderText, string boxText, string boxName)
+        public ActionBox(string boxHeaderText, string boxText, string boxName)
         {
             InitializeComponent(boxHeaderText, boxText, boxName);
         }
@@ -25,7 +25,7 @@ namespace SidderApp
         private void InitializeComponent(string boxHeaderText, string boxText, string boxName)
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CloseDeleteBox));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ActionBox));
             this.listViewUVHDFiles = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));

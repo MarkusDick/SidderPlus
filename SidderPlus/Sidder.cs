@@ -13,6 +13,7 @@ using System.DirectoryServices.AccountManagement;
 using System.Management.Automation;
 using System.Collections.ObjectModel;
 using System.Windows.Forms.VisualStyles;
+using System.Diagnostics;
 
 namespace SidderApp
 {
@@ -69,7 +70,7 @@ namespace SidderApp
                 }
 
             }
-            catch 
+            catch
             {
                 returnValue = "SID Resolve Error";
             }
@@ -206,17 +207,19 @@ namespace SidderApp
             {
                 buttonDelete.Enabled = false;
                 buttonClose.Enabled = false;
+                buttonCompactUPD.Enabled = false;
                 return;
             }
 
             buttonDelete.Enabled = true;
             buttonClose.Enabled = true;
+            buttonCompactUPD.Enabled = true;
         }
 
         private void buttonDelete_Click(object sender, EventArgs e)
         {
 
-            CloseDeleteBox deleteBox = new CloseDeleteBox("UVHD files to delete", "Delete", "DeleteBox");
+            ActionBox deleteBox = new ActionBox("UVHD files to delete", "Delete", "DeleteBox");
             deleteBox.listViewUVHDFiles.Items.Clear();
 
             foreach(ListViewItem item in listViewUVHDFiles.SelectedItems)
@@ -289,7 +292,7 @@ namespace SidderApp
             {
                 PowerShell ps = PowerShell.Create();
 
-                CloseDeleteBox closeBox = new CloseDeleteBox("UVHD files to close", "Close", "CloseBox");
+                ActionBox closeBox = new ActionBox("UVHD files to close", "Close", "CloseBox");
                 closeBox.listViewUVHDFiles.Items.Clear();
 
                 foreach (ListViewItem item in listViewUVHDFiles.SelectedItems)
@@ -437,6 +440,147 @@ namespace SidderApp
             if (listViewUVHDFiles.SelectedItems.Count > 0)
             {
                 CopyListviewEntriesToClipboard();
+            }
+        }
+
+        private bool CompactVHDX(string vhdxPath, ref string errorMessage)
+        {
+            try
+            {
+                string diskpartScript = $"select vdisk file=\"{vhdxPath}\"\ncompact vdisk";
+                string scriptFilePath = Path.GetTempFileName();
+
+                File.WriteAllText(scriptFilePath, diskpartScript);
+
+                Process process = new Process();
+                process.StartInfo.FileName = "diskpart.exe";
+                process.StartInfo.Arguments = $"/s \"{scriptFilePath}\"";
+                process.StartInfo.RedirectStandardOutput = true;
+                process.StartInfo.RedirectStandardError = true;
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.CreateNoWindow = true;
+
+                process.Start();
+                process.WaitForExit();
+                
+                File.Delete(scriptFilePath);
+
+                int exitCode = process.ExitCode;
+
+                if (exitCode != 0)
+                {
+                    errorMessage = "Error executing Diskpart.";
+                    return false;
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"Exception: {ex.Message}";
+                return false;
+            }
+        }
+
+        private void buttonCompactUPD_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (IsElevated())
+                {
+                    StringBuilder results = new StringBuilder();
+                    long totalReduction = 0;
+
+                    if (!string.IsNullOrEmpty(textBoxFilePathUVHD.Text) && listViewUVHDFiles.SelectedItems.Count > 0)
+                    {
+                        results.AppendLine("Compaction Results:");
+                        results.AppendLine("=====================");
+
+                        ActionBox compactBox = new ActionBox("UVHD files to compact", "Compact", "CompactBox");
+                        compactBox.listViewUVHDFiles.Items.Clear();
+
+                        foreach (ListViewItem item in listViewUVHDFiles.SelectedItems)
+                        {
+                            ListViewItem compactItem = new ListViewItem(item.Text, item.ImageIndex);
+                            compactItem.SubItems.Add(item.SubItems[2].Text);
+                            compactItem.SubItems.Add(item.SubItems[4].Text);
+                            compactBox.listViewUVHDFiles.Items.Add(compactItem);
+                        }
+
+                        DialogResult result = compactBox.ShowDialog();
+
+                        if (result == DialogResult.Cancel) { return; }
+
+                        if (result == DialogResult.OK)
+                        {
+                            int totalItems = compactBox.listViewUVHDFiles.Items.Count;
+                            int processedItems = 0;
+
+                            foreach (ListViewItem item in compactBox.listViewUVHDFiles.Items)
+                            {
+                                textBoxStatus.Text = $"Compacting {processedItems + 1} of {totalItems} files.";
+                                textBoxStatus.Refresh();
+                                string filePath = Path.Combine(textBoxFilePathUVHD.Text, item.SubItems[0].Text);
+                                FileInfo fileInfo = new FileInfo(filePath);
+                                if (!IsFileLocked(fileInfo))
+                                {
+                                    long sizeBeforeCompression = fileInfo.Length / 1024 / 1024;
+                                    string errorMessage = string.Empty;
+                                    bool isSuccess = CompactVHDX(filePath, ref errorMessage);
+
+                                    if (!isSuccess)
+                                    {
+                                        results.AppendLine($"[ERROR] File: {filePath}");
+                                        results.AppendLine($"Reason: {errorMessage}");
+                                        results.AppendLine(new string('-', 50));
+                                    }
+                                    else
+                                    {
+                                        // Calculate the size reduction after compression
+                                        FileInfo newFileInfo = new FileInfo(filePath);
+                                        long fileSizeMB = newFileInfo.Length / 1024 / 1024;
+                                        long reductionAmount = sizeBeforeCompression - fileSizeMB;
+
+                                        results.AppendLine($"[SUCCESS] File: {filePath}");
+                                        results.AppendLine($"Reduced by: {reductionAmount} MB");
+                                        results.AppendLine(new string('-', 50));
+
+                                        totalReduction += reductionAmount;
+                                    }
+                                }
+                                else
+                                {
+                                    results.AppendLine($"[SKIPPED] File: {filePath}");
+                                    results.AppendLine("Reason: File is locked.");
+                                    results.AppendLine(new string('-', 50));
+                                }
+
+                                processedItems++;
+                            }
+                        }
+
+                            results.AppendLine("=====================");
+                            results.AppendLine($"Total Reduction: {totalReduction} MB");
+                            results.AppendLine("=====================");
+
+                        var messageBox = new ScrollMessageBox("Compaction Result", results.ToString());
+                        messageBox.ShowDialog();
+                        textBoxStatus.Text = $"Compaction Result: Total Reduction: {totalReduction} MB";
+                    }
+                    else
+                    {
+                        textBoxStatus.Text = "No files selected.";
+                    }
+                }
+                else
+                {
+                    textBoxStatus.Text = "Please restart SidderPlus with elevated rights.";
+                    buttonCompactUPD.Enabled = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                textBoxStatus.Text = "Error: " + ex.Message;
             }
         }
     }

@@ -36,6 +36,7 @@
             this.linkLabel = new System.Windows.Forms.LinkLabel();
             this.textBoxStatus = new System.Windows.Forms.TextBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.buttonCompactUPD = new System.Windows.Forms.Button();
             this.buttonExport = new System.Windows.Forms.Button();
             this.buttonClose = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
@@ -106,9 +107,22 @@
             this.textBoxStatus.Enabled = false;
             this.textBoxStatus.Location = new System.Drawing.Point(13, 422);
             this.textBoxStatus.Name = "textBoxStatus";
-            this.textBoxStatus.Size = new System.Drawing.Size(649, 22);
+            this.textBoxStatus.Size = new System.Drawing.Size(615, 22);
             this.textBoxStatus.TabIndex = 7;
             this.textBoxStatus.TabStop = false;
+            // 
+            // buttonCompactUPD
+            // 
+            this.buttonCompactUPD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCompactUPD.Enabled = false;
+            this.buttonCompactUPD.Image = global::SidderApp.Properties.Resources.compact;
+            this.buttonCompactUPD.Location = new System.Drawing.Point(634, 422);
+            this.buttonCompactUPD.Name = "buttonCompactUPD";
+            this.buttonCompactUPD.Size = new System.Drawing.Size(28, 22);
+            this.buttonCompactUPD.TabIndex = 13;
+            this.toolTip.SetToolTip(this.buttonCompactUPD, "Compact selected VHDX");
+            this.buttonCompactUPD.UseVisualStyleBackColor = true;
+            this.buttonCompactUPD.Click += new System.EventHandler(this.buttonCompactUPD_Click);
             // 
             // buttonExport
             // 
@@ -223,6 +237,7 @@
             // 
             // CopyMenuStrip
             // 
+            this.CopyMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.CopyMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.copyToolStripMenuItem});
             this.CopyMenuStrip.Name = "contextMenuStrip1";
@@ -232,7 +247,7 @@
             // copyToolStripMenuItem
             // 
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
             this.copyToolStripMenuItem.Text = "Copy";
             // 
             // textBoxFilePathUVHDCurrent
@@ -268,6 +283,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(742, 465);
+            this.Controls.Add(this.buttonCompactUPD);
             this.Controls.Add(this.labelSearch);
             this.Controls.Add(this.textBoxSearch);
             this.Controls.Add(this.buttonExport);
@@ -317,6 +333,7 @@
         private System.Windows.Forms.Label labelSearch;
         private System.Windows.Forms.ContextMenuStrip CopyMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
+        private System.Windows.Forms.Button buttonCompactUPD;
     }
 }
 
