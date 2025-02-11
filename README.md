@@ -4,7 +4,7 @@ SidderPlus is a fork of [Sidder](https://github.com/msfreaks/Sidder) from [msfre
 
 Sidder allows to quickly identify which User Profile Disk belongs to which Domain User. 
 
-This fork also allows to close an open smb file / close an locked UPD (User Profile Disk).
+This fork also allows to close an open smb file / close an locked UPD (User Profile Disk) and to compact the UPDs.
 
 ## Why SidderPlus
 Sometimes we have the problem that users do not get their own user profile disk assigned. Therefore, you must search for the locked vhdx file name in Sidder and then go to Computer Management and close the open smb file. This fork adds this feature directly to Sidder.
@@ -19,6 +19,7 @@ Update: It seems that the project [has been revived](https://github.com/msfreaks
 | Identifiy which UPD belongs to which Domain User             | ✅      | ✅          |
 | Delete UPD                                                   | ✅      | ✅          |
 | Close locked UPD                                             | ❌      | ✅          |
+| Compact UPD / VHDX                                           | ❌      | ✅          |
 | CSV export                                                   | ✅      | ✅          |
 | Copy UPD-Name to clipboard (Ctrl + C or right-click => Copy) | ❌      | ✅          |
 | Basic user search                                            | ✅      | ✅          |
@@ -36,13 +37,24 @@ I am not a C# developer. I just "hacked" this version together. Before this proj
 You can download the latest version [here from the releases](https://github.com/MarkusDick/SidderPlus/releases/).
 
 ## Screenshot
+### Overview
 ![](sidder_plus_screenshot.png)
+
+### Close
 ![](sidder_plus_close_screenshot.png)
 
+### Compact UPD / VHDX Files
+![](sidder_plus_compact_screenshot.png)
+![](sidder_plus_compact_results_screenshot.png)
+
 ## Usage
-You need to start SidderPlus as an administrator. Then you can select an item and press the left button to close the open SMB file / the locked UPD.
+You need to start SidderPlus as an administrator. Then you can select an item and press the button in the middle to close the open SMB file / the locked UPD.
 
 ![](how_to_close.png)
+
+To compact a UPD / VHDX / UVHD it is the same procedure. You have to select an or multiple items and click on the left button.
+
+![](how_to_compact.png)
 
 That's it.
 
