@@ -85,11 +85,17 @@
     <Compile Include="FolderBrowserEx.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="CloseDeleteBox.cs">
+    <Compile Include="ActionBox.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FolderSelectDialog.cs" />
     <Compile Include="Reflector.cs" />
+    <Compile Include="ScrollMessageBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ScrollMessageBox.Designer.cs">
+      <DependentUpon>ScrollMessageBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Sidder.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,8 +108,11 @@
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CloseDeleteBox.resx">
-      <DependentUpon>CloseDeleteBox.cs</DependentUpon>
+    <EmbeddedResource Include="ActionBox.resx">
+      <DependentUpon>ActionBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ScrollMessageBox.resx">
+      <DependentUpon>ScrollMessageBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Sidder.resx">
       <DependentUpon>Sidder.cs</DependentUpon>
@@ -158,6 +167,7 @@
     <None Include="sync.png" />
     <None Include="folder.png" />
     <None Include="delete.png" />
+    <None Include="compact.png" />
     <Content Include="export.png" />
     <Content Include="msfreaks.ico" />
   </ItemGroup>
